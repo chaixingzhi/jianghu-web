@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    <Layout/>
-    <!-- <router-view/> -->
+    <router-view/>
   </div>
 </template>
 <script lang="ts">
 import Layout from '@/components/Layout.vue';
 import { Component, Vue } from 'vue-property-decorator';
 @Component({
+  name: 'App',
   components: {
     Layout,
   },
 })
-export default class App extends Vue{
-  
-}
+export default class extends Vue {}
 </script>
 <style>
 #app {

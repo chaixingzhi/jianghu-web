@@ -30,10 +30,18 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 
-export default class Main extends Vue {
-  private activeName:string = 'first'
+@Component({
+  name: 'Main',
+})
+
+export default class extends Vue {
+  private activeName: string = 'first';
+
+  mounted() {
+    console.log(this)
+  };
 }
 </script>
 

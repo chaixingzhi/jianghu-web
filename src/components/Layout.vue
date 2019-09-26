@@ -49,7 +49,13 @@
             </div>
             <div style="height: 50px; line-height: 50px;position: relative;">
               <transition name="fade">
-                <input type="text" class="search-input" placeholder="请输入关键字进行搜索" v-show="inputVisible">
+                <input 
+                  type="text" 
+                  class="search-input" 
+                  placeholder="请输入关键字进行搜索" 
+                  v-show="inputVisible"
+                  @input="searchInput"
+                >
               </transition>
               <i 
                 class="el-icon-search"
@@ -87,49 +93,55 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
-export default class Layout extends Vue{
+@Component({
+  name: 'Layout',
+})
+export default class extends Vue {
+  private searchInput = () => {
+    console.log('search this: ', this)
+  }
   private user: object =  {
     username: 'Chai',
-    email: '13213352672@163.com'
-  }
-  private asideVisible:boolean = true
-  private inputVisible:boolean = false
+    email: '13213352672@163.com',
+  };
+  private asideVisible: boolean = true;
+  private inputVisible: boolean = false;
   private menus = [
     {
       icon: 'el-icon-s-home',
       name: '主页',
-      path: '/home'
+      path: '/home',
     },
     {
       icon: 'el-icon-s-cooperation',
       name: '归档',
-      path: '/archives'
+      path: '/archives',
     },
     {
       icon: 'el-icon-s-promotion',
       name: '标签',
-      path: '/tag'
+      path: '/tag',
     },
     {
       icon: 'el-icon-menu',
       name: '分类',
-      path: '/type'
+      path: '/type',
     }
-  ]
-  private handleLiClick(index:number, event:any) {
-    let doms:any = document.getElementById('menuSelf')
+  ];
+  private handleLiClick(index: number, event: any) {
+    console.log('layout this', this)
+    const doms: any = document.getElementById('menuSelf');
     
-    Array.from(doms.children).forEach((dom:any) => {
-      dom.className = 'menu-item'
-    })
+    Array.from(doms.children).forEach((dom: any) => {
+      dom.className = 'menu-item';
+    });
     doms.children[index].className += " active-item";
-  }
+  };
   private hideShowMenu() {
-    this.asideVisible = !this.asideVisible
+    this.asideVisible = !this.asideVisible;
   }
   private showHideSearchInput() {
-    this.inputVisible = !this.inputVisible
+    this.inputVisible = !this.inputVisible;
   }
 }
 </script>

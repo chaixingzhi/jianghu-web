@@ -1,4 +1,4 @@
-# typedemo
+# 江湖博客Web端
 
 ## Project setup
 ```
