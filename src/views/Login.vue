@@ -10,10 +10,10 @@
             v-model="loginForm"
             :rules="loginRules"
           >
-            <el-form-item prop="username" >
+            <el-form-item prop="loginid" >
               <el-input
-                ref="username"
-                v-model="loginForm.username"
+                ref="loginid"
+                v-model="loginForm.loginid"
                 type="text"
                 autocomplete="off"
                 :placeholder="$t('login.accountPlaceholder')"
@@ -83,7 +83,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Dictionary } from 'vuex'
+import { Route } from 'vue-router'
 import { Form as ElForm, Input } from 'element-ui';
 import LangSelect from '@/components/LangSelect/index.vue'
 import axios from 'axios';
@@ -112,7 +114,7 @@ export default class extends Vue{
   }
   private activeName:string = 'first';
   private loginForm = {
-    username: '',
+    loginid: '',
     password: ''
   };
   private handleClick = () => {
@@ -121,9 +123,30 @@ export default class extends Vue{
   private passwordType:string = 'password';
 
   private loginRules:object = {
-    username: [{ validator: this.validateUsername, trigger: 'blur' }],
+    loginid: [{ validator: this.validateUsername, trigger: 'blur' }],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
+  private redirect?: string
+  private otherQuery: Dictionary<string> = {}
+
+  @Watch('$route', { immediate: true })
+  private onRouteChange(route: Route) {
+    const query = route.query as Dictionary<string>
+    if (query) {
+      this.redirect = query.redirect
+      this.otherQuery = this.getOtherQuery(query)
+    }
+  }
+
+  private getOtherQuery(query: Dictionary<string>) {
+    return Object.keys(query).reduce((acc, cur) => {
+      if (cur !== 'redirect') {
+        acc[cur] = query[cur]
+      }
+      return acc
+    }, {} as Dictionary<string>)
+  }
+
   private showPassword = () => {
     console.log('显示密码', this.passwordType)
     if(this.passwordType === 'password') {
@@ -140,15 +163,16 @@ export default class extends Vue{
       headers: {
         'Content-Type': 'application/json'
       },
-      data: {
-        username: 'admin',
-        password: '123456'
-      }
+      data: this.loginForm
     }).then(res => {
       if(res.data.message === 'login success') {
         Cookies.set('token', '123456');
         console.log('this.router', this)
-        this.$router.push('/home');
+        // this.$router.push('/home');
+        this.$router.push({
+          path: this.redirect || '/',
+          query: this.otherQuery
+        })
       } else {
         _this.$message.error('账号密码错误！')
       }
@@ -160,8 +184,8 @@ export default class extends Vue{
   };
   mounted() {
     console.log(this)
-    if (this.loginForm.username === '') {
-      (this.$refs.username as Input).focus()
+    if (this.loginForm.loginid === '') {
+      (this.$refs.loginid as Input).focus()
     } else if (this.loginForm.password === '') {
       (this.$refs.password as Input).focus()
     }

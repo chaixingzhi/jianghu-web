@@ -8,11 +8,6 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: () => import(/* webpackChunkName: "login" */'./views/Login.vue'),
-    },
-    {
       path: '/',
       component: () => import('./components/Layout.vue'),
       redirect: '/home',
@@ -23,11 +18,36 @@ export default new Router({
           component: () => import('./views/Home.vue')
         },
         {
-          path: '/log',
-          name: 'login',
-          component: () => import(/* webpackChunkName: "login" */'./views/Login.vue'),
+          path: '/archive',
+          name: 'archive',
+          component: () => import(/* webpackChunkName: "login" */'./views/Archive.vue'),
+        },
+        {
+          path: '/category',
+          name: 'category',
+          component: () => import(/* webpackChunkName: "login" */'./views/Category.vue'),
+        },
+        {
+          path: '/tag',
+          name: 'tag',
+          component: () => import(/* webpackChunkName: "login" */'./views/Tag.vue'),
         },
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */'./views/Login.vue'),
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import(/* webpackChunkName: "login" */'./views/blog/index.vue'),
+    },
+    {
+      path: '/redirect/:path*',
+      name: 'blog',
+      component: () => import(/* webpackChunkName: "login" */'./views/redirect/index.vue'),
     }
-  ],
+  ]
 });

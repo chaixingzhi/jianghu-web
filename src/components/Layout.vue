@@ -115,7 +115,7 @@ export default class extends Vue {
     {
       icon: 'el-icon-s-cooperation',
       name: '归档',
-      path: '/archives',
+      path: '/archive',
     },
     {
       icon: 'el-icon-s-promotion',
@@ -125,7 +125,7 @@ export default class extends Vue {
     {
       icon: 'el-icon-menu',
       name: '分类',
-      path: '/type',
+      path: '/category',
     }
   ];
   private handleLiClick(index: number, event: any) {
