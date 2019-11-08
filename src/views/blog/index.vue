@@ -4,7 +4,7 @@
       <img src="../../assets/csdn-logo.png" alt="" class="blog-logo">
       <el-tabs v-model="activeName" @tab-click="handleClick" class="blog-tab">
         <el-tab-pane label="博客" name="first"></el-tab-pane>
-        <el-tab-pane label="个人博客" name="second"></el-tab-pane>
+        <el-tab-pane label="其他资讯" name="second"></el-tab-pane>
       </el-tabs>
       <div class="blog-header-right">
         <!-- <a href="">登录</a> -->
@@ -159,10 +159,20 @@ export default class extends Vue {
         }
         .header-right-login {
           @include buttonHover;
+          margin-right: 10px;
         }
-        &:hover {
-          background-color: #bbb;
+        .header-right-write {
+          @include buttonHover;
         }
+        .header-right-login:hover{
+          color:blue;
+        }
+        .header-right-write:hover{
+          color:green;
+        }
+        // &:hover {
+        //   background-color: #bbb;
+        // }
       }
 
     }

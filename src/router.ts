@@ -45,6 +45,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "login" */'./views/blog/index.vue'),
     },
     {
+      path: '/write',
+      name: 'write',
+      component: () => import(/* webpackChunkName: "login" */'./views/blog/WriteBlog.vue'),
+    },
+    {
       path: '/redirect/:path*',
       name: 'blog',
       component: () => import(/* webpackChunkName: "login" */'./views/redirect/index.vue'),

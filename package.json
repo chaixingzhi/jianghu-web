@@ -9,6 +9,8 @@
     "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^3.0.1",
+    "@types/tinymce": "^4.5.23",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.12.0",
@@ -18,6 +20,8 @@
     "nprogress": "^0.2.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
+    "tinymce": "^5.0.1",
+    "tui-editor": "^1.4.7",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-i18n": "^8.14.0",
@@ -28,12 +32,12 @@
     "vuex-module-decorators": "^0.10.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.2",
+    "@types/nprogress": "^0.2.0",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-typescript": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "typescript": "^3.4.3",
-    "vue-template-compiler": "^2.6.10",
-    "@types/js-cookie": "^2.2.2",
-    "@types/nprogress": "^0.2.0"
+    "vue-template-compiler": "^2.6.10"
   }
 }
