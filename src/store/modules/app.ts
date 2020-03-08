@@ -27,6 +27,7 @@ class App extends VuexModule implements IAppState {
   public device = DeviceType.Desktop
   public language = getLocale()
   public size = getSize() || 'medium'
+  public user = {}
 
   @Mutation
   private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
@@ -63,6 +64,11 @@ class App extends VuexModule implements IAppState {
     setSize(this.size)
   }
 
+  @Mutation
+  private SET_USER_INFO(user: string) {
+    this.user = user
+  }
+
   @Action
   public ToggleSideBar(withoutAnimation: boolean) {
     this.TOGGLE_SIDEBAR(withoutAnimation)
@@ -86,6 +92,11 @@ class App extends VuexModule implements IAppState {
   @Action
   public SetSize(size: string) {
     this.SET_SIZE(size)
+  }
+
+  @Action
+  public SetUserInfo(user: any) {
+    this.SET_USER_INFO(user)
   }
 }
 

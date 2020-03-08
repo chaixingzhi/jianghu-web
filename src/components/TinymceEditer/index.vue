@@ -4,7 +4,7 @@
 
 <script lang="ts">
 // api-key="ld2t78njl0a3nq8b218fvjvexpg1ql999h23ldmiyxwxz9hd"
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import Editor from '@tinymce/tinymce-vue';
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
@@ -23,7 +23,8 @@ import 'tinymce/plugins/textcolor';
     'tinymce-editor': Editor,
   }
 })
-export default class extends Vue{
+export default class extends Vue {
+  @Prop({ required: true }) private value!: string
   private editorInit:any = {
     language_url: '/tinymce/zh_CN.js',
     language: 'zh_CN',
@@ -37,6 +38,12 @@ export default class extends Vue{
  
   mounted() {
     tinymce.init({})
+  }
+  @Watch('tinymceHtml')
+  private onValueChange(value: string, oldValue: string) {
+    if (value !== oldValue ) {
+        this.$emit('change', value)
+    }
   }
 }
 </script>

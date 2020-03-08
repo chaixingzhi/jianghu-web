@@ -88,7 +88,7 @@ import { Dictionary } from 'vuex'
 import { Route } from 'vue-router'
 import { Form as ElForm, Input } from 'element-ui';
 import LangSelect from '@/components/LangSelect/index.vue'
-import axios from 'axios';
+import Api from '../api/commonApi'
 import Cookies from 'js-cookie';
 
 @Component({
@@ -157,18 +157,10 @@ export default class extends Vue{
   }
   private joinHome(){
     const _this = this;
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/signin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: this.loginForm
-    }).then(res => {
+    Api.post('signin', this.loginForm).then(res => {
       if(res.data.message === 'login success') {
         Cookies.set('token', '123456');
-        console.log('this.router', this)
-        // this.$router.push('/home');
+        Cookies.set('userId', res.data.data.id)
         this.$router.push({
           path: this.redirect || '/',
           query: this.otherQuery

@@ -92,6 +92,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import Api from '../api/commonApi'
+import Cookies from 'js-cookie'
 
 @Component({
   name: 'Layout',
@@ -142,6 +144,11 @@ export default class extends Vue {
   }
   private showHideSearchInput() {
     this.inputVisible = !this.inputVisible;
+  }
+  created() {
+    Api.get('user/'+ Cookies.get('userId')).then(res => {
+      console.log('获取登录用户信息： ', res)
+    })
   }
 }
 </script>
