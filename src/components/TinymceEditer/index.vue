@@ -42,7 +42,7 @@ export default class extends Vue {
   @Watch('tinymceHtml')
   private onValueChange(value: string, oldValue: string) {
     if (value !== oldValue ) {
-        this.$emit('change', value)
+        this.$emit('change', tinymce)
     }
   }
 }

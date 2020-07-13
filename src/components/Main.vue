@@ -33,8 +33,9 @@ export default class extends Vue {
     default() {
         return []
     }
-  })private tabNames
-  @Prop({default: 'type1'})private activeTempName: string
+  }) private tabNames:any;
+  @Prop({default: 'type1'}) private activeTempName:any;
+
   created() {
     console.log('tabNames: ', this.tabNames)
     this.activeName = this.activeTempName
@@ -53,8 +54,9 @@ export default class extends Vue {
 
   .main-header {
     background-color: $bg-color;
+    background-image: url("https://files.dbnuo.com/wallpaper/wallhaven-4gj334.webp");
     // line-height: 130px;
-    text-align: letf;
+    text-align: left;
     color: white;
     // padding: 0 150px 0 150px;
     @include div-padding;

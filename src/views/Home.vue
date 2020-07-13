@@ -1,15 +1,11 @@
 <template>
-  <Main 
-    :tabNames="tabNames"
-    :activeName="activeName"
-  >
-    <div slot="content">
-      <div class="cart-wrap">
+    <div class="home-warp">
+      <div class="cart-wrap" v-for="(blog,index) in blogs" :key="index" @click="goToDetail(blog)">
         <div class="cart-header">
-          2018-10-15 前端
+          {{blog.user.alias}}&nbsp;{{moment(blog.createdAt).format('YYYY-MM-DD')}}
         </div>
         <div class="cart-title">
-            <a class="post-title-link">AngularJS踩坑之路(四)：商品展示案例</a>
+            <a class="post-title-link">{{blog.title}}</a>
         </div>
         <el-divider></el-divider>
         <div class="cart-tag">
@@ -17,27 +13,45 @@
         </div>
       </div>
     </div>
-  </Main>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import Main from '@/components/Main.vue';
-import Api from '../api/commonApi'
+import { AppModule } from '../store/modules/app'
+import Cookie from 'js-cookie';
+import Api from '../api/commonApi';
+import moment from 'moment';
 
 @Component({
   name: 'Home',
-  components: {
-    Main
-  }
 })
 export default class extends Vue {
-  private tabNames = []
-  private activeName = ''
+  private blogs:any = []
+  private moment:any = moment
   private getData() {
-    // Api.get('blogs/'+ this.userId).then(res => {
-
-    // })
+    console.log('AppModule: ', AppModule)
+    Api.post('blog/getAll',{
+      limit: 10,
+      // order: ['createdAt', 'desc'],
+      where: {
+        "author_id": Cookie.get('userId')
+      },
+      include: [
+        {
+          model: 'User',
+        }
+      ]
+    }).then((res:any) => {
+      this.blogs = res.data
+    })
+  };
+  private goToDetail(val:any) {
+    this.$router.push({
+      name: 'detail',
+      query: {
+        blogId: val.id
+      }
+    })
   };
   created() {
     this.getData()
@@ -47,12 +61,18 @@ export default class extends Vue {
 </script>
 
 <style lang="scss">
-  .cart-wrap {
-      width: 300px;
+  .home-warp {
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    .cart-wrap {
+      width: 40%;
       background-color: #fff;
       border-radius: 5px;
       min-height: 120px;
       padding: 15px 10px 10px 10px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
       .el-divider--horizontal {
         margin: 18px 0;
       }
@@ -102,4 +122,6 @@ export default class extends Vue {
         }
       }
     }
+  }
+
 </style>

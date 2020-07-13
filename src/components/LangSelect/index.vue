@@ -27,8 +27,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { AppModule } from '../../store/modules/app'
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { AppModule } from '../../store/modules/app';
 
 @Component({
   name: 'LangSelect'

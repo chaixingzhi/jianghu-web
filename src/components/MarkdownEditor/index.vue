@@ -3,12 +3,12 @@
 </template>
 
 <script lang="ts">
-import 'codemirror/lib/codemirror.css' // codemirror
-import 'tui-editor/dist/tui-editor.css' // editor ui
-import 'tui-editor/dist/tui-editor-contents.css' // editor content
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import defaultOptions from './default-options'
-import TuiEditor from 'tui-editor'
+import 'codemirror/lib/codemirror.css'; // codemirror
+import 'tui-editor/dist/tui-editor.css'; // editor ui
+import 'tui-editor/dist/tui-editor-contents.css'; // editor content
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import defaultOptions from './default-options';
+import TuiEditor from 'tui-editor';
 
 const defaultId = () => 'markdown-editor-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
 

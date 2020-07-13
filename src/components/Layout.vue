@@ -76,9 +76,13 @@
               name="fade-transform"
               mode="out-in"
             >
-              <keep-alive>
-                <router-view key="/home"/>
-              </keep-alive>
+              <Main :tabNames="tabNames" :activeTempName="activeName">
+                <div slot="content">
+                  <keep-alive>
+                    <router-view />
+                  </keep-alive>
+                </div>
+              </Main>
             </transition>
           </el-main>
           <el-footer class="footer">
@@ -91,12 +95,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import Api from '../api/commonApi'
-import Cookies from 'js-cookie'
+  import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+  import { AppModule } from '../store/modules/app';
+  import Api from '../api/commonApi';
+  import Cookies from 'js-cookie';
+  import Main from '@/components/Main.vue';
+  // import {Route} from "vue-router";
+  // import {Dictionary} from "vuex";
 
 @Component({
   name: 'Layout',
+  components: {
+    Main
+  }
 })
 export default class extends Vue {
   private searchInput = () => {
@@ -108,22 +119,24 @@ export default class extends Vue {
   };
   private asideVisible: boolean = true;
   private inputVisible: boolean = false;
+  private tabNames:any = [];
+  private activeName:string = '首页';
   private menus = [
     {
       icon: 'el-icon-s-home',
       name: '主页',
       path: '/home',
     },
-    {
-      icon: 'el-icon-s-cooperation',
-      name: '归档',
-      path: '/archive',
-    },
-    {
-      icon: 'el-icon-s-promotion',
-      name: '标签',
-      path: '/tag',
-    },
+    // {
+    //   icon: 'el-icon-s-cooperation',
+    //   name: '归档',
+    //   path: '/archive',
+    // },
+    // {
+    //   icon: 'el-icon-s-promotion',
+    //   name: '标签',
+    //   path: '/tag',
+    // },
     {
       icon: 'el-icon-menu',
       name: '分类',
@@ -145,10 +158,36 @@ export default class extends Vue {
   private showHideSearchInput() {
     this.inputVisible = !this.inputVisible;
   }
-  created() {
-    Api.get('user/'+ Cookies.get('userId')).then(res => {
-      console.log('获取登录用户信息： ', res)
+
+  private getActiveNames() {
+    Api.post('category/getAll', {
+        limit: 4,
+        where: {
+            user_id: Cookies.get('userId')
+        }
+    }).then((res:any) => {
+      this.tabNames = res.data.map((item: any) => {
+          return {
+            name: item.name,
+            label: item.name
+          }
+      })
     })
+  };
+  // @Watch('$route', { immediate: true })
+  // private onRouteChange(route: Route) {
+  //   this.tabNames = [{
+  //     label: '前端',
+  //     name: '前端'
+  //   }]
+  //   console.log('route:', route)
+  // }
+  created() {
+    // this.getActiveNames()
+    // Api.get('user/'+ Cookies.get('userId')).then(res => {
+    //   console.log('获取登录用户信息： ', res)
+    //   AppModule.SetUserInfo(res.data.data)
+    // })
   }
 }
 </script>

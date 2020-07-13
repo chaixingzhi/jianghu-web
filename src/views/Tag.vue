@@ -14,7 +14,7 @@ import Main from '@/components/Main.vue';
 })
 export default class extends Vue {
   created() {
-    console.log('this: ',this)
+    console.log('this: ', this)
   }
 }
 </script>

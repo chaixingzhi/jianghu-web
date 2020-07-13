@@ -155,9 +155,10 @@ export default class extends Vue{
       this.passwordType = 'password';
     }
   }
+
   private joinHome(){
     const _this = this;
-    Api.post('signin', this.loginForm).then(res => {
+    Api.post('signin', this.loginForm).then((res:any) => {
       if(res.data.message === 'login success') {
         Cookies.set('token', '123456');
         Cookies.set('userId', res.data.data.id)
@@ -170,6 +171,7 @@ export default class extends Vue{
       }
     })
   }
+
   private inputChange = (value: any) => {
     console.log('value: ', value)
     console.log('value2: ', this)
