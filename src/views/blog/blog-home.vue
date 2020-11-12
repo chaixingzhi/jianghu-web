@@ -22,7 +22,7 @@
           </el-carousel-item>
         </el-carousel>
         <div class="center-blog">
-          <div class="center-blog-item" v-for="(item,index) in blogs" :key="index">
+          <div class="center-blog-item" v-for="(item,index) in blogs" :key="index" @click="viewBlog(item)">
             <div>{{item.title}}</div>
             <div style="height: 80px;line-height: 28px;">{{item.content.substr(0,80)}}...</div>
             <div style="font-size: 12px">{{item.user.alias}}</div>
@@ -100,6 +100,15 @@ export default class extends Vue{
       this.blogs = res.data
       console.debug('blogs: ', this.blogs)
     })
+  };
+
+  private viewBlog(val: any) {
+      this.$router.push({
+          name: 'detail',
+          query: {
+              blogId: val.id
+          }
+      })
   };
   mounted() {
     console.log('进入blog首页：')

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3000/';
+const baseUrl = 'http://chaiserver.cn:3000/';
 
 interface ApiValue {
     custom?: any,
@@ -9,7 +9,6 @@ interface ApiValue {
     delete?: any
 }
 const Api: ApiValue= {};
-
 
 Api.custom = axios
 Api.create = function(url: string, data: object) {

@@ -6,18 +6,18 @@
 
       </div>
     </div>
-    <vue-markdown class="article-content"></vue-markdown>
+<!--    <vue-markdown class="article-content"></vue-markdown>-->
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import VueMarkdown from 'vue-markdown';
+// import VueMarkdown from 'vue-markdown';
 import Api from '../../api/commonApi';
 @Component({
   name: 'blog-detail',
   components: {
-    VueMarkdown
+    // VueMarkdown
   }
 })
 export default class extends Vue {
@@ -42,16 +42,11 @@ export default class extends Vue {
 
 <style lang="scss">
   #blog-detail {
-    // margin-top: 30px;
     padding: 0 280px;
-    background-color: #bbb;
     min-height: 100vh;
-    // background-image: url('../../assets/jianghu.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    // background-color: #000;
+    background-image: url("http://chaiserver.cn:9526/img/bg5.4cf8e523.jpg");
+    background-size: cover;
     opacity: 1;
-    // padding:0 150px;
     .mark-content {
       height: 100%;
       background-color: #fff;
